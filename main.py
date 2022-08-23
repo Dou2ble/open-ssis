@@ -7,8 +7,8 @@ import hikari
 import lightbulb
 from dotenv import load_dotenv
 
-import utils
 import embeds
+import utils
 
 #load .env
 load_dotenv()

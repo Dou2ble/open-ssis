@@ -1,7 +1,7 @@
-import fitz
-import os
 import datetime
-import time
+import os
+
+import fitz
 
 PDF_URL = "https://api.eatery.se/skriv-ut/?id=2401"
 
