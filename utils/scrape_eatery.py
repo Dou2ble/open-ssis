@@ -51,7 +51,9 @@ def scrape_eatery():
 
     # add emojis to the text
     content_clean = content_clean.replace("SWEET", ":cake: SWEET") # cake emoji
+    content_clean = content_clean.replace("FRUITY", ":tangerine: FRUITY") # mandarin emoji
     content_clean = content_clean.replace("PANCAKE", ":pancakes: PANCAKES") # pancake emoji
+    content_clean = content_clean.replace("PANCAKE", ":hamburger: BURGER") # burger emoji
 
 
     # lstrip and rstrip removes unwanted whitespace
