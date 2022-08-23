@@ -1,11 +1,14 @@
 #ssis discord bot
 
 #import .env
-from dotenv import load_dotenv
 import os
+
 import hikari
 import lightbulb
-import eatery
+from dotenv import load_dotenv
+
+import utils
+import embeds
 
 #load .env
 load_dotenv()
@@ -24,22 +27,23 @@ bot = lightbulb.BotApp(
 
 # help command
 @bot.command
-@lightbulb.command("help", "Get a list of availible commands")
+@lightbulb.command("help", "Lista över bottens kommandon.")
 @lightbulb.implements(lightbulb.SlashCommand)
 async def ping(ctx: lightbulb.context) -> None:
     await ctx.respond(
         hikari.Embed(
             title="Commands:",
             description="""
-            **/help** - Get this link
-            **/ping** - Check if the bot is online
-            **/food** - Check the lunch menu for the week
+            **/help** - Lista över bottens kommandon.
+            **/ping** - Testa att botten är online.
+            **/mat** - Se veckans matsedel.
+            **/schema** - Se klassens schema.            
             """
             ))
 
 # ping command
 @bot.command
-@lightbulb.command("ping", "Ping the bot.")
+@lightbulb.command("ping", "Testa att botten är online.")
 @lightbulb.implements(lightbulb.SlashCommand)
 async def ping(ctx: lightbulb.context) -> None:
     await ctx.respond(
@@ -50,16 +54,35 @@ async def ping(ctx: lightbulb.context) -> None:
 
 # food command
 @bot.command
-@lightbulb.command("food", "Get the food for the day.")
+@lightbulb.command("mat", "Se veckans matsedel.")
 @lightbulb.implements(lightbulb.SlashCommand)
-async def food(ctx: lightbulb.context) -> None:
+async def mat(ctx: lightbulb.context) -> None:
     try:
-        await ctx.respond("Scraping :hourglass:")
+        await ctx.respond(embeds.SCRAPING)
 
-        await ctx.respond(
+        await ctx.edit_last_response(
             hikari.Embed(
                 title="Eatery Kista Nod",
-                description=eatery.scrape()
+                description=utils.scrape_eatery()
+                ))
+    except Exception as e:
+        await ctx.respond(
+            hikari.Embed(
+                title="Error",
+                description=str(e)
+                ))
+
+@bot.command
+@lightbulb.command("schema", "Se klassens schema.")
+@lightbulb.implements(lightbulb.SlashCommand)
+async def schema(ctx: lightbulb.context) -> None:
+    try:
+        await ctx.respond(embeds.SCRAPING)
+
+        await ctx.edit_last_response(
+            hikari.Embed(
+                title="Schema",
+                description=utils.scrape_schema()
                 ))
     except Exception as e:
         await ctx.respond(

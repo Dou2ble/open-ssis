@@ -1,8 +1,9 @@
 import fitz
 import os
 import datetime
+import time
 
-url = "https://api.eatery.se/skriv-ut/?id=2401"
+PDF_URL = "https://api.eatery.se/skriv-ut/?id=2401"
 
 
 # download pdf file from url to root dir
@@ -14,16 +15,18 @@ def formatDay(day):
 
     # weekdays
     if day == 0: output += "**Måndag**"
-    elif day == 1: output += "**Tisdag**"
-    elif day == 2: output += "**Onsdag**"
-    elif day == 3: output += "**Torsdag**"
-    elif day == 4: output += "**Fredag**"
+    if day == 1: output += "**Tisdag**"
+    if day == 2: output += "**Onsdag**"
+    if day == 3: output += "**Torsdag**"
+    if day == 4: output += "**Fredag**"
     
     if day == datetime.datetime.today().weekday(): output += "__"
 
+    output += "\n"
+
     return output
 
-def scrape():
+def scrape_eatery():
     global monday
     global tuesday
     global wednesday
@@ -31,8 +34,7 @@ def scrape():
     global friday
     global week
 
-    os.system("wget -t 10 -O meny.pdf " + url)
-
+    os.system("wget -t 10 -O meny.pdf " + PDF_URL)
     
     content = ""
     content_clean = ""
@@ -45,10 +47,12 @@ def scrape():
     for line in content.splitlines():
         if not "KISTA NOD" in line:
             content_clean += line + "\n"
+            
 
     # add emojis to the text
     content_clean = content_clean.replace("SWEET", ":cake: SWEET") # cake emoji
     content_clean = content_clean.replace("PANCAKE", ":pancakes: PANCAKES") # pancake emoji
+
 
     # lstrip and rstrip removes unwanted whitespace
     monday = content_clean.split("MÅNDAG")[1].split("TISDAG")[0].lstrip().rstrip()
@@ -58,15 +62,11 @@ def scrape():
     friday = content_clean.split("FREDAG")[1].lstrip().rstrip()
 
 
-    week = [monday + tuesday + wednesday + thursday + friday]
+    week = [monday, tuesday, wednesday, thursday, friday]
 
     output = ""
 
-    for day in range(4):
-        output += formatDay(day) + week[day]
+    for day in range(5):
+        output += formatDay(day) + week[day] + "\n\n"
     
     return output
-    
-    
-    # week is a string with all the days nicely formatted for discord
-    
