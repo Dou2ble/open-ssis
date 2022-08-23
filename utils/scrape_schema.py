@@ -1,5 +1,5 @@
-from bs4 import BeautifulSoup as bs, SoupStrainer as ss
 import requests
+from bs4 import BeautifulSoup as bs
 
 SCHEMA_URL = "https://ssis.nu/?p=scheman"
 
