@@ -72,18 +72,33 @@ async def mat(ctx: lightbulb.context) -> None:
                 description=str(e)
                 ))
 
+#@bot.command
+#@lightbulb.command("schema", "Se klassens schema.")
+#@lightbulb.implements(lightbulb.SlashCommand)
+#async def schema(ctx: lightbulb.context) -> None:
+#    try:
+#        await ctx.respond(embeds.SCRAPING)
+#
+#        await ctx.edit_last_response(
+#            hikari.Embed(
+#                title="Schema",
+#                description=utils.scrape_schema()
+#                ))
+#    except Exception as e:
+#        await ctx.respond(
+#            hikari.Embed(
+#                title="Error",
+#                description=str(e)
+#                ))
+
 @bot.command
+@lightbulb.option("klass", "klassen du vill se schemat från", modifier=lightbulb.OptionModifier.CONSUME_REST, required=True)
 @lightbulb.command("schema", "Se klassens schema.")
 @lightbulb.implements(lightbulb.SlashCommand)
 async def schema(ctx: lightbulb.context) -> None:
     try:
-        await ctx.respond(embeds.SCRAPING)
+        await ctx.respond(utils.fetch_schema(ctx.options.klass))
 
-        await ctx.edit_last_response(
-            hikari.Embed(
-                title="Schema",
-                description=utils.scrape_schema()
-                ))
     except Exception as e:
         await ctx.respond(
             hikari.Embed(
