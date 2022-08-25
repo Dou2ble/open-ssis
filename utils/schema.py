@@ -24,7 +24,7 @@ def fetch_schema(class_):
     j = json.loads(r.content)
 
 
-    table_obj = texttable.Texttable(50)
+    table_obj = texttable.Texttable(42)
     table_obj.set_cols_align(["c", "c", "c"])
     table_obj.set_cols_dtype(["t", "t", "t"])
     rows = [["LEKTION", "KLASSRUM", "TID"]]
@@ -43,7 +43,7 @@ def fetch_schema(class_):
         classroom = classroom.replace("SSIS-Klassrum-", "")
         classroom = classroom.split(" (")[0] # removing the unnecesary (35)
 
-        time = lession["start_time"] + " - " + lession["end_time"]
+        time = lession["start_time"] + "\n" + lession["end_time"]
 
 
         rows.append([lession["subject"], classroom, time])
