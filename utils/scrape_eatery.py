@@ -52,7 +52,7 @@ def scrape_eatery():
     # add emojis to the text
     content_clean = content_clean.replace("SWEET", ":cake: SWEET") # cake emoji
     content_clean = content_clean.replace("FRUITY", ":tangerine: FRUITY") # mandarin emoji
-    content_clean = content_clean.replace("PANCAKE", ":pancakes: PANCAKES") # pancake emoji
+    content_clean = content_clean.replace("PANCAKE", ":pancakes: PANCAKE") # pancake emoji
     content_clean = content_clean.replace("BURGER", ":hamburger: BURGER") # burger emoji
 
 
