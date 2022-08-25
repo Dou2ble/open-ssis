@@ -32,7 +32,10 @@ def fetch_schema(class_):
     for lession in j:
         try:
             li = list(lession["participants"].split(", "))
-            classroom = li[2]
+            if next((s for s in li if "Klassrum" in s), None) is not None:
+                classroom = next((s for s in li if "Klassrum" in s), None)
+            else:
+                raise Exception()
         except:
             classroom = "?"
 
