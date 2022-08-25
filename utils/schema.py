@@ -32,12 +32,16 @@ def fetch_schema(class_):
     for lession in j:
         try:
             li = list(lession["participants"].split(", "))
-            if next((s for s in li if "Klassrum" in s), None) is not None:
-                classroom = next((s for s in li if "Klassrum" in s), None)
+            if next((s for s in li if "SSIS-Klassrum-" in s), None) is not None:
+                classroom = next((s for s in li if "SSIS-Klassrum-" in s), None)
             else:
                 raise Exception()
         except:
             classroom = "?"
+        
+        #cleaning up classroom string
+        classroom = classroom.replace("SSIS-Klassrum-", "")
+        classroom = classroom.split(" (")[0]
 
         time = lession["start_time"] + " - " + lession["end_time"]
 
