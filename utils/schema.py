@@ -41,7 +41,7 @@ def fetch_schema(class_):
         
         #cleaning up classroom string
         classroom = classroom.replace("SSIS-Klassrum-", "")
-        classroom = classroom.split(" (")[0]
+        classroom = classroom.split(" (")[0] # removing the unnecesary (35)
 
         time = lession["start_time"] + " - " + lession["end_time"]
 
