@@ -2,11 +2,23 @@ import json
 
 import requests
 import texttable
+from bs4 import BeautifulSoup as bs
 
+SCHEMA_URL = "https://ssis.nu/?p=scheman"
 URL = "https://api.ssis.nu/cal/?room="
 
-def fetch_schema(class_):
+def scrape_schema(class_):
+    r = requests.get(SCHEMA_URL)
 
+    soup = bs(r.content, "html5lib")
+
+    for line in soup.find_all("a"):
+        if line.text.lower().startswith(class_.lower()):
+            output = line["href"]
+    
+    return output
+
+def fetch_schema(class_):
 
     r = requests.get(URL + class_.lower())
     j = json.loads(r.content)
