@@ -78,7 +78,10 @@ async def mat(ctx: lightbulb.context) -> None:
 @lightbulb.implements(lightbulb.SlashCommand)
 async def schema(ctx: lightbulb.context) -> None:
     try:
-        await ctx.respond(utils.fetch_schema(ctx.options.klass))
+        await ctx.respond(
+            ctx.options.klass.upper() +
+            "\n" +
+            utils.fetch_schema(ctx.options.klass))
 
         await ctx.edit_last_response(hikari.Embed().set_author(
             name="Google Kalender",
