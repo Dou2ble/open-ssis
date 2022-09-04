@@ -1,2 +1,2 @@
-from .schema import scrape_schema, fetch_schema
+from .schema import fetch_schema, scrape_schema
 from .scrape_eatery import scrape_eatery

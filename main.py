@@ -1,6 +1,3 @@
-#ssis discord bot
-
-#import .env
 import os
 
 import hikari
